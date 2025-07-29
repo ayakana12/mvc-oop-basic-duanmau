@@ -25,6 +25,7 @@ body {
 .main-content {
   flex: 1;
   padding: 40px;
+  margin-left: 230px; /* Để tránh bị sidebar che, đồng bộ với sidebar */
 }
 
 .main-content h1 {

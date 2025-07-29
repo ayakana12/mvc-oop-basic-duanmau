@@ -1,4 +1,3 @@
-<!-- Trang danh mucj -->
 <?php
 $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
 ?>
@@ -9,7 +8,6 @@ $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
 <!-- Form thêm danh mục mới -->
 <form action="<?= BASE_URL .'?act=adddmuc'?>" method="post" style="margin-bottom: 20px;" enctype="multipart/form-data">
     <input type="text" name="name" placeholder="Tên danh mục" required>
-    <input type="number" name="quantily" placeholder="Số lượng" min="0" required>
     <button type="submit">Thêm danh mục</button>
 </form>
 
@@ -18,7 +16,6 @@ $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
     <tr>
         <th>ID</th>
         <th>Tên Danh mục</th>
-        <th>Số lượng</th>
         <th>Hành động</th>
     </tr>
     <?php
@@ -30,7 +27,7 @@ $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
             <tr>
                 <td><?= $item['id'] ?><input type="hidden" name="id" value="<?= $item['id'] ?>"></td>
                 <td><input type="text" name="name" value="<?= htmlspecialchars($item['name']) ?>" required></td>
-                <td><input type="number" name="quantily" value="<?= $item['quantily'] ?>" min="0" required></td>
+          
                 <td>
                     <button type="submit">Lưu</button>
                     <a href="<?= BASE_URL.'?act=category' ?>">Hủy</a>
@@ -43,7 +40,6 @@ $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
             <tr>
                 <td><?= $item['id'] ?></td>
                 <td><?= $item['name'] ?></td>
-                <td><?= $item['quantily'] ?></td>
                 <td>
                     <a href="<?= BASE_URL.'?act=edit_id&id='.$item['id'] ?>">Sửa</a>
                     <a href="<?= BASE_URL.'?act=deletedmuc&id='.$item['id'] ?>" onclick="return confirm('Xác nhận xóa?')" class="delete">Xóa</a>
@@ -51,7 +47,7 @@ $edit_id = isset($_GET['id']) ? $_GET['id'] : null;
             </tr>
             <?php
         }
-    } 
+    }
     ?>
 </table>
 </div>

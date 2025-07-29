@@ -25,20 +25,20 @@ class CategoryModel {
     }
 
     //thực hiện thêm danh mục
-    function addCategory($name, $quantily) {
-        $sql = "INSERT INTO danhmuc (name, quantily) VALUES (:name, :quantily)";
+    function addCategory($name, ) {
+        $sql = "INSERT INTO danhmuc (name) VALUES (:name)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':quantily', $quantily);
+      
         return $stmt->execute();
     }
     //thực hiện sửa danh mục
     function updateCategory($id, $name, $quantily) {
-        $sql = "UPDATE danhmuc SET name = :name, quantily = :quantily WHERE id = :id";
+        $sql = "UPDATE danhmuc SET name = :name WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':quantily', $quantily);
+      
         return $stmt->execute();
     }
     

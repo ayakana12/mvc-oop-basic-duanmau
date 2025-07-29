@@ -58,7 +58,8 @@ class HomeController {
             $remember=isset($_POST['remember']) ? true : false;
             $user = $this->userModel->getUser($username, $password);
             if($user=='admin'){
-                 header('Location: '.BASE_URL.'?act=homeadmin'); // Trang quản trị viên
+                $_SESSION['user'] = 'admin';
+                header('Location: '.BASE_URL.'?act=homeadmin'); // Trang quản trị viên
                 exit();
             }else if($user === 'user'){
                 header('Location: '.BASE_URL); // Trang người dùng thường
@@ -72,7 +73,9 @@ class HomeController {
 
     function Logout(){
         // Trang đăng xuất
-        session_start(); // Bắt đầu phiên làm việc
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start(); // Bắt đầu phiên làm việc
+        }
         // Xóa tất cả dữ liệu trong session
         session_unset();
         // Xóa session

@@ -45,16 +45,16 @@
         <div class="loginandgiohang">
           <div class="login">
              <?php
-              if (isset($_SESSION['user'])){ 
-                ?>
-                    <span>Xin chào, <?= htmlspecialchars($_SESSION['user']['name']) ?></span>
-                    <a href="<?= BASE_URL ?>?act=logout" style="margin-left:10px;">Đăng xuất</a>
-                <?php 
-             }else{ 
-                   ?>
-                     <a href="<?= BASE_URL ?>?act=login">Đăng nhập</a>
-                  <?php
-                   } 
+              if (isset($_SESSION['user'])) {
+                  if (is_array($_SESSION['user']) && isset($_SESSION['user']['name'])) {
+                      echo '<span>Xin chào, ' . htmlspecialchars($_SESSION['user']['name']) . '</span>';
+                  } elseif (is_string($_SESSION['user'])) {
+                      echo '<span>Xin chào, ' . htmlspecialchars($_SESSION['user']) . '</span>';
+                  }
+                  echo '<a href="' . BASE_URL . '?act=logout" style="margin-left:10px;">Đăng xuất</a>';
+              } else {
+                  echo '<a href="' . BASE_URL . '?act=login">Đăng nhập</a>';
+              }
             ?>
            </div>
 

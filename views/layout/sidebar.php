@@ -10,9 +10,6 @@
     <li><a href="?act=logoutadm">🚪 Thoát</a></li>
   </ul>
 </div>
-<div class="main-content">
-  <!-- Nội dung chính sẽ được hiển thị ở đây -->
-</div>
 <style>
     * {
   margin: 0;
@@ -28,24 +25,12 @@ body {
 }
 
 /* === SIDEBAR === */
-
 .sidebar {
   width: 230px;
   background-color: #2c3e50;
   color: #fff;
   padding: 20px 0;
   flex-shrink: 0;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
-}
-
-.main-content {
-  margin-left: 230px;
-  padding: 40px;
-  flex: 1;
 }
 
 .sidebar h2 {
