@@ -39,13 +39,14 @@ footer {
     max-width: 1200px; /* Max width for larger screens */
     margin: 0 auto; /* Center the content */
     padding: 0 20px; /* Side padding for smaller screens */
+    height: 150px; /* Fixed height for the footer */
 }
 
 .footer-content p {
     margin: 0;
     font-size: 16px; /* Readable font size */
     font-family: 'Arial', sans-serif; /* Clean font */
-    line-height: 1.5;
+    line-height: 150px;
 }
 
 /* Responsive Design */

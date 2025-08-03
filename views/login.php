@@ -15,7 +15,7 @@
             </label>
         </div>
         <div class="form-group">
-            <a href="#">Đăng kí</a>
+            <a href="<?= BASE_URL.'?act=dangki' ?>">Đăng kí</a>
             <a href="#">Quên mật khẩu?</a>
         </div>
         <div class="form-group">

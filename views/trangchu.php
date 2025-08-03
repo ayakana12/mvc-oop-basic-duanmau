@@ -17,7 +17,7 @@
   
 
   <div class="container flex-grow-1 d-flex flex-column">
-      <h4>Sản Phẩm Ưu Đãi</h4>
+      <h4 class="special-title">Sản Phẩm Ưu Đãi</h4>
       <div class="row flex-grow-1">
         <?php if (!empty($products)): ?>
             <?php foreach ($products as $item): ?>
@@ -92,4 +92,42 @@
 }
 
 
+    .special-title {
+        margin-top: 50px;
+        margin-bottom: 24px;
+        text-align: center;
+        font-size: 2.1rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        color: #e74c3c;
+        text-shadow: 2px 2px 8px rgba(231,76,60,0.15), 0 2px 8px rgba(0,0,0,0.08);
+        transition: color 0.3s, text-shadow 0.3s;
+        position: relative;
+        z-index: 1;
+        animation: blinkTitle 1.2s infinite alternate;
+    }
+
+    @keyframes blinkTitle {
+        0% {
+            color: #e74c3c;
+            text-shadow: 2px 2px 8px rgba(231,76,60,0.15), 0 2px 8px rgba(0,0,0,0.08);
+        }
+        50% {
+            color: #e8796dff;
+            text-shadow: 0 0 16px #e74c3c, 0 2px 12px rgba(0,0,0,0.15);
+        }
+         70% {
+            color: #ab5249ff;
+            text-shadow: 0 0 16px #e74c3c, 0 2px 12px rgba(0,0,0,0.15);
+        }
+        100% {
+            color: #e74c3c;
+            text-shadow: 2px 2px 8px rgba(231,76,60,0.15), 0 2px 8px rgba(0,0,0,0.08);
+        }
+    }
+    .special-title:hover {
+        color: #c0392b;
+        text-shadow: 0 4px 16px rgba(231,76,60,0.25), 0 2px 12px rgba(0,0,0,0.15);
+     
+    }
 </style>

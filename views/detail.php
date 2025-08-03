@@ -10,6 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+
+
 <div class="container">
     <div class="col-md-6 mb-4">
          <div class="card product-card">
@@ -56,6 +59,54 @@
       </div>
    </div>
 </div>
+
+
+<!-- //🚩🚩🚩🚩🚩🚩🚩🚩form bình luận🚩🚩🚩🚩🚩🚩 -->
+
+
+<?php
+if (isset($_GET['act']) && $_GET['act'] === 'detail' && isset($_GET['id'])) {
+?>
+<div class="comment-wrapper">
+  <div class="comment-box">
+      <h4>Bình luận sản phẩm:</h4><br>
+      <?php foreach ($comments as $cmt): ?>
+      <div class="comment">
+          <div class="comment-avatar">
+              <img src="<?= $cmt['avata'] ?>" alt="Avatar">
+          </div>
+          <div class="comment-content">
+              <div class="name"><?= htmlspecialchars($cmt['name']) ?></div>
+              <div class="text"><?= htmlspecialchars($cmt['noidung']) ?></div>
+              <div class="time"><?= htmlspecialchars($cmt['date']) ?></div>
+          </div>
+      </div>
+      <?php endforeach; ?>
+        </div>
+       <div class="form-contens">
+      <!-- FORM GỬI BÌNH LUẬN -->
+      <?php if (isset($_SESSION['user'])): ?>
+      <form class="comment-form" method="post" action="<?= BASE_URL . '?act=commentbinhluan'?>">
+          <input type="hidden" name="id_sp" value="<?= htmlspecialchars($_GET['id']) ?>">
+          <input type="hidden" name="user_id" value="<?= isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : '' ?>">
+          <input type="text" name="comment" placeholder="Viết bình luận..." required>
+          <button type="submit">Gửi</button>
+      </form>
+      <?php else: ?>
+      <div class="alert alert-warning mt-3">Bạn cần <a href="<?= BASE_URL ?>?act=login">đăng nhập</a> để bình luận.</div>
+      <?php endif; ?>
+      </div>
+ 
+</div>
+<?php
+}
+?>
+
+
+
+
+
+<!-- //🚩🚩🚩🚩hiển thị sản phẩm liên quan 🚩🚩🚩🚩-->
 
 <div class="productadd">
     <h3>HOT</h3>
@@ -131,7 +182,7 @@ footer {
      flex: 1 ;
      display: flex;
      justify-content: center; /* Căn giữa ngang */
-        align-items: center;     /* Căn giữa dọc nếu muốn */
+   
      
 
     
@@ -233,6 +284,85 @@ footer {
 } 
 
 </style>
-        
+     
 
-    
+<!-- 🚩🚩🚩🚩css bình luận 🚩🚩🚩🚩-->
+<style>
+.comment-box {
+    max-width: 70%;
+    height: 280px;              /* ✅ Chiều cao cố định */
+
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+      overflow-y: auto;           /* ✅ Cho phép cuộn */
+    scroll-behavior: smooth;
+
+
+}
+.form-contens {
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+.comment {
+    display: flex;
+    margin-bottom: 15px;
+  
+}
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.comment-content {
+    background: #f1f1f1;
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 600px;
+}
+.comment-content .name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.comment-content .text {
+    margin-bottom: 5px;
+}
+.comment-content .time {
+    font-size: 12px;
+    color: #888;
+}
+.comment-form {
+    display: flex;
+    margin-top: 20px;
+}
+.comment-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.comment-form button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    background: #2e89ff;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+</style>
+

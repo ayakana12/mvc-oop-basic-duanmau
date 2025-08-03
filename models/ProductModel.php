@@ -35,14 +35,21 @@ class ProductModel {
     }
 
     // Hàm tìm kiếm sản phẩm
-    function getSearch($name,$tk){
-        $sql="SELECT * FROM product WHERE id_danhmuc=:name AND name LIKE :tk";
-        $stmt=$this->conn->prepare($sql);
-        $stmt->bindParam(':name',$name);
-        $stmt->bindValue(':tk', '%' . $tk . '%'); // Thêm dấu % để tìm kiếm theo từ khóa
+    function getSearch($category, $keyword){
+        if ($category === '' || $category === null) {
+            // Không lọc theo danh mục, chỉ tìm theo tên
+            $sql = "SELECT * FROM product WHERE name LIKE :tk";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':tk', '%' . $keyword . '%');
+        } else {
+            // Lọc cả danh mục và tên
+            $sql = "SELECT * FROM product WHERE id_danhmuc = :category AND name LIKE :tk";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':category', $category);
+            $stmt->bindValue(':tk', '%' . $keyword . '%');
+        }
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
     }
 
 

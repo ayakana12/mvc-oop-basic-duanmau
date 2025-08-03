@@ -24,7 +24,7 @@ class CategoryModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    //thực hiện thêm danh mục
+    //thực hiện thêm danh mục   
     function addCategory($name, ) {
         $sql = "INSERT INTO danhmuc (name) VALUES (:name)";
         $stmt = $this->conn->prepare($sql);

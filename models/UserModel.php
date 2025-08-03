@@ -34,6 +34,37 @@ class UserModel{
         }
     }
 
+    // hàm kiểm tra email đã tồn tại
+    public function emailExists($email) {
+        $sql = "SELECT COUNT(*) FROM user WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
+    // hàm thêm người dùng
+    public function addUser($name, $email, $pass,$avatar) {
+        $sql = "INSERT INTO user (name, email, pass, avata, create_at) VALUES (:name, :email, :pass, :avatar, :create_at)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':pass', $pass);
+        $create_at = date('Y-m-d H:i:s');
+        if ($avatar && $avatar['error'] == UPLOAD_ERR_OK) {
+            // Kiểm tra và xử lý upload ảnh
+            $targetDir = 'uploads/img/'; // Thư mục lưu trữ ảnh
+            $targetFile = $targetDir . basename($avatar['name']);
+            move_uploaded_file($avatar['tmp_name'], $targetFile);
+            $stmt->bindParam(':avatar', $targetFile);
+            $stmt->bindParam(':create_at', $create_at);
+        } else {
+            $stmt->bindValue(':avatar', null); // Nếu không có ảnh, gán giá trị null
+            $stmt->bindParam(':create_at', $create_at);
+        }
+        $stmt->execute();
+    }
+
 
 }
 ?>

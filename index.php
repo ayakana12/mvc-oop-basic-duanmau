@@ -13,6 +13,7 @@ require_once './controllers/AdminController.php';
 require_once './models/ProductModel.php';
 require_once './models/CategoryModel.php';
 require_once './models/UserModel.php';
+require_once './models/CommentModel.php'; // Model cho bình luận
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -32,6 +33,9 @@ match ($act) {
     'login'         => (new HomeController())->Login(),
     'formlogin'     => (new HomeController())->FormLogin(),
     'logout'        => (new HomeController())->Logout(),
+    'dangki'=>(new HomeController())->DangKi(), // Trang đăng ký
+    'formdangki' => (new HomeController())->FormDangKi(), // Xử lý đăng ký
+    'commentbinhluan' => (new HomeController())->CommentBinhLuan(), // Xử lý bình luận
 
     // Trang admin
     'homeadmin'     => (new AdminController())->HomeAdmin(),
