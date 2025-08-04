@@ -8,6 +8,12 @@ class UserModel{
     public function __construct(){
         $this->conn = connectDB();
     }
+    function getAllUsers() {
+        $sql = "SELECT * FROM user";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getUser($username,$password){
         $sql='SELECT * FROM user WHERE name=:username and pass=:password';
         $stmt=$this->conn->prepare($sql);
@@ -53,7 +59,7 @@ class UserModel{
         $create_at = date('Y-m-d H:i:s');
         if ($avatar && $avatar['error'] == UPLOAD_ERR_OK) {
             // Kiểm tra và xử lý upload ảnh
-            $targetDir = 'uploads/img/'; // Thư mục lưu trữ ảnh
+            $targetDir = 'img/'; // Thư mục lưu trữ ảnh
             $targetFile = $targetDir . basename($avatar['name']);
             move_uploaded_file($avatar['tmp_name'], $targetFile);
             $stmt->bindParam(':avatar', $targetFile);

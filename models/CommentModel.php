@@ -19,6 +19,18 @@ class Comment {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
+    function getAllComment1() {
+         $sql = "SELECT comment.*, user.name AS name, user.avata AS avata , product.name AS product_name
+         FROM comment 
+          inner JOIN user ON comment.id_user = user.id
+          inner  Join product on comment.id_sp = product.id
+         ORDER BY comment.id DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     //🚩🚩 Hàm sử lý  hàm thêm bình luận
     function addComment ($id_sp, $content,$id_user){
         $date = date('Y-m-d H:i:s');
@@ -30,6 +42,13 @@ class Comment {
         $stmt->bindParam(':noidung', $content);
         
      
+        return $stmt->execute();
+    }
+
+    function deleteComment($id){
+        $sql="DELETE FROM comment WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
 

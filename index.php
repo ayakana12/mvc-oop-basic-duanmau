@@ -18,7 +18,7 @@ require_once './models/CommentModel.php'; // Model cho bình luận
 // Route
 $act = $_GET['act'] ?? '/';
 
-if(  $act=='homeadmin' || $act=='category' || $act=='product' ||$act=='category' ){
+if(  $act=='homeadmin' || $act=='category' || $act=='product' ||$act=='category'|| $act=='edit_id'|| $act=='editproduct' || $act=='updatedmuc' || $act=='deletedmuc' || $act=='logoutadm' || $act=='addproduct' || $act=='comment' || $act='user' ){
     include_once  __DIR__.'/views/layout/sidebar.php';
 }
 if($act=='/' || $act=='detail' || $act=='search' ){
@@ -45,7 +45,22 @@ match ($act) {
     'updatedmuc'    => (new AdminController())->updateCategory(),
     'deletedmuc'    => (new AdminController())->deleteCategory(),
     'logoutadm'     => (new AdminController())->LogoutAdmin(),
+
     'product'       => (new AdminController())->Product(),
+    'addproduct'    => (new AdminController())->addProduct(),// Thêm sản phẩm
+    'updateproduct' => (new AdminController())->updateProduct(), // Cập nhật sản
+    'deleteproduct'=> (new AdminController())->deleteProduct(), // Xóa sản phẩm
+    'editproduct'=> (new AdminController())->editProduct(), // Sửa sản phẩm
+    'formaddproduct' => (new AdminController())->FormAddProduct(), // Hiển thị form thêm sản phẩm
+
+    // Trang xử lý bình luận
+    'comment'       => (new AdminController())->Comment(), // Trang xử lý bình luận
+    'deletecomment' => (new AdminController())->deleteComment(), // Xóa bình luận
+
+    // Trang quản lý người dùng
+    'user'         => (new AdminController())->User(), // Trang quản lý người dùng
+   
+
     // Thêm các route khác nếu cần
 };
 if($act=='/' || $act=='detail' || $act=='search' ){

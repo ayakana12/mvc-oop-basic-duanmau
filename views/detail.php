@@ -73,7 +73,7 @@ if (isset($_GET['act']) && $_GET['act'] === 'detail' && isset($_GET['id'])) {
       <?php foreach ($comments as $cmt): ?>
       <div class="comment">
           <div class="comment-avatar">
-              <img src="<?= $cmt['avata'] ?>" alt="Avatar">
+              <img src="<?=BASE_ASSETS_UPLOADS. $cmt['avata'] ?>" alt="Avatar">
           </div>
           <div class="comment-content">
               <div class="name"><?= htmlspecialchars($cmt['name']) ?></div>
@@ -175,19 +175,14 @@ footer {
     flex-shrink: 0;
 }
  .container {
-      width: 80vw;              /* Chiếm 65% chiều rộng màn hình */
-    max-width: 1200px;         /* Giới hạn tối đa */
-    margin: 40px auto;        /* Căn giữa theo chiều ngang và cách trên dưới */
-    padding: 0 20px; 
-     flex: 1 ;
-     display: flex;
-     justify-content: center; /* Căn giữa ngang */
-   
-     
-
-    
-
-    }
+    width: 85vw;              /* Rộng hơn */
+    max-width: 1400px;        /* Giới hạn tối đa lớn hơn */
+    margin: 40px auto;
+    padding: 0 38px 0 38px;   /* Padding ngang lớn hơn */
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
     .product-card {
     display: flex;
     flex-direction: row;
@@ -213,10 +208,14 @@ footer {
 
 .product-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Giữ tỷ lệ, không bị méo */
+    max-height: 340px;
+    height: auto;
+    object-fit: contain; /* Không bị méo, luôn hiển thị toàn bộ ảnh */
     object-position: center;
     display: block;
+    border-radius: 8px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 8px #0001;
 }
 .product-info-list {
     margin: 10px 0 0 0;
@@ -228,7 +227,7 @@ footer {
 /* Bên phải - thông tin */
 .product-info {
     width: 60%;
-    padding: 15px;
+    padding: 28px 32px 28px 32px; /* Padding lớn hơn */
     background-color: #fff;
 }
 

@@ -53,4 +53,47 @@ class ProductModel {
     }
 
 
+    // 🚩🚩🚩🚩🚩🚩 Hàm xóa  sản phẩm
+    function deleteProduct($id){
+        $sql = "DELETE FROM product WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    // 🚩🚩🚩🚩🚩🚩 Hàm thêm sản phẩm
+
+    function getImgById($id){
+        $sql="SELECT img FROM product WHERE id=:id";
+        $stmt=$this->conn->prepare($sql);
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();
+        $ketqua=$stmt->fetch(PDO::FETCH_ASSOC);
+        return $ketqua['img'];
+    }
+    // cập nhật sản phẩm (chỉ sửa các trường có trong form sửa)
+    function updateProduct($id, $name, $img, $id_danhmuc, $mota, $price){
+        $sql = "UPDATE product SET name = :name, img = :img, id_danhmuc = :id_danhmuc, mota = :mota, price = :price WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':img', $img);
+        $stmt->bindParam(':id_danhmuc', $id_danhmuc, PDO::PARAM_INT);
+        $stmt->bindParam(':mota', $mota);
+        $stmt->bindParam(':price', $price);
+        return $stmt->execute();
+    }
+
+    // 🚩🚩🚩🚩🚩🚩 Hàm thêm sản phẩm
+    function addProduct($name, $img, $id_danhmuc, $mota, $price){
+        $sql = "INSERT INTO product (name, img, id_danhmuc, mota, price) VALUES (:name, :img, :id_danhmuc, :mota, :price)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':img', $img);
+        $stmt->bindParam(':id_danhmuc', $id_danhmuc);
+        $stmt->bindParam(':mota', $mota);
+        $stmt->bindParam(':price', $price);
+        return $stmt->execute();
+    }
+
 }
