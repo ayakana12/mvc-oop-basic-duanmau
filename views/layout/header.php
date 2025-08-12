@@ -14,6 +14,12 @@
             <div class="logo"> POLYSHOP</div>
         
             <div class="timkiem">
+                 <a href="<?= BASE_URL ?>" class="btn-home">
+                <i class="fa-solid fa-house"></i> Trang chủ
+                </a>
+                <a href="<?= BASE_URL ?>?act=lienhe" class="btn-contact">
+                <i class="fa-solid fa-envelope"></i> Liên hệ
+                </a>
                 <!-- Form tìm kiếm sản phẩm -->
                 <form action="<?= BASE_URL.'?act=search' ?>" method="post" style="display: flex; align-items: center; gap: 10px;">
                     <div style="position:relative; display:inline-block;">
@@ -26,6 +32,7 @@
                         </select>
                         <span class="dropdown-arrow" style="position:absolute; right:18px; top:50%; transform:translateY(-50%); pointer-events:none;"><i class="fa-solid fa-chevron-down"></i></span>
                     </div>
+                    <!-- Form tìm kiếm sản phẩm -->
                     <div class="input-group-search">
                         <input type="text" placeholder="Tìm kiếm sản phẩm" name="keyword">
                         <button type="submit" name="button"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -33,9 +40,7 @@
                 </form>
 
 
-                <a href="<?= BASE_URL ?>" class="btn-home">
-                <i class="fa-solid fa-house"></i> Trang chủ
-                </a>
+               
             </div>
         
 
@@ -45,33 +50,40 @@
 
 
 
-            <div class="loginandgiohang">
-            <div class="login">
-                <?php
-                if (isset($_SESSION['user'])) {
-                    if (is_array($_SESSION['user']) && isset($_SESSION['user']['name'])) {
-                        echo '<span>Xin chào, ' . htmlspecialchars($_SESSION['user']['name']) . '</span>';
-                    } elseif (is_string($_SESSION['user'])) {
-                        echo '<span>Xin chào, ' . htmlspecialchars($_SESSION['user']) . '</span>';
-                    }
-                    echo '<a href="' . BASE_URL . '?act=logout" style="margin-left:10px;">Đăng xuất</a>';
-                } else {
-                    echo '<a href="' . BASE_URL . '?act=login">Đăng nhập</a>';
-                }
-                ?>
-            </div>
+    <div class="loginandgiohang">
+    <div class="login">
+        <div class="user-menu">
+            <i class="fa-solid fa-user user-icon"></i>
+            <?php if (isset($_SESSION['user'])): ?>
+                <span class="user-name">
+                    <?= htmlspecialchars(is_array($_SESSION['user']) ? $_SESSION['user']['name'] : $_SESSION['user']) ?>
+                </span>
+                <select class="user-select" onchange="if(this.value) window.location.href=this.value;">
+                    <option value="">Tùy chọn</option>
+                    <option value="<?= BASE_URL ?>?act=update_info">Cập nhật thông tin</option>
+                    <option value="<?= BASE_URL ?>?act=logout&js=1">Đăng xuất</option>
+                </select>
+            <?php else: ?>
+                <a href="<?= BASE_URL ?>?act=login" class="login-link">Đăng nhập</a>
+            <?php endif; ?>
+        </div>
+    </div>
 
-                <div class="giohang">
-                    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i>Giỏ hàng</a>
-            </div>
+    <div class="giohang">
+        <a href="?act=giohang">
+            <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+        </a>
+    </div>
+</div>
+
         </section>
 
 
         <?php
     $act = $_GET['act'] ?? '/'; // Nếu không có act thì gán rỗng
 
-    if ($act == 'detail') {
-        // KHÔNG hiện banner ở trang chi tiết
+    if ($act == 'detail' || $act == 'addshop' || $act == 'shop' || $act == 'giohang'|| $act == 'lienhe') {
+        // KHÔNG hiện banner ở các trang này, nhưng header vẫn hiện
     } else {
         // Hiện banner ở mọi trang khác, kể cả trang chủ
         ?>  
@@ -91,7 +103,7 @@
         var index = 0;
         var imgbanner = document.getElementById('imgbanner');
         var indicator = document.getElementById('banner-indicator');
-        var tenAnh = ["banner.jpg", "banner1.jpg"];
+        var tenAnh = ["banner.jpg", "banner1.jpg","banner2.jpg"];
         for (let i = 0; i < tenAnh.length; i++) {
             anhar[i] = new Image();
             anhar[i].src = "<?= BASE_URL_LAYOUT_BANNER ?>" + tenAnh[i];
@@ -146,53 +158,64 @@
     </body>
     </html>
         <style>
-        /* Header section */
+            
+
+        /* Header section - all selectors scoped to .header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: #B4332C;
-            padding: 15px 30px;
+            padding: 0 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             margin-top: 0;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            width: auto;
+            min-width: 0;
+            height: 70px;
+            line-height: 70px;
+            box-sizing: border-box;
             z-index: 1000;
+            font-family: 'Segoe UI', Arial, sans-serif !important;
         }
-        /* Đảm bảo nội dung không bị header che khuất */
         .main-content, body > .container, body > .banner, body > .productadd {
             padding-top: 90px;
         }
-        
-
-        .logo {
+        .header .logo {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #333;
+            color: #fff;
+            letter-spacing: 2px;
         }
-
-
-    /*  */
-
-
-        .timkiem {
+        /* serech */
+        .header .timkiem {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
+            flex-shrink: 0;
+            height: 38px;
+            overflow: visible;
         }
-
-        .timkiem select {
+        /* Cố định font cho select danh mục */
+        .header .timkiem select {
+            font-family: 'Segoe UI', Arial, sans-serif !important;
             background: #7a2320;
             color: #fff;
             border: none;
             border-radius: 35px;
-            padding: 8px 38px 8px 18px; /* tăng padding phải cho icon, padding nhỏ lại */
-            font-size: 0.8rem; /* chữ nhỏ hơn */
+            padding: 0 14px;
+            font-size: 0.95rem;
             font-weight: 500;
             outline: none;
-            min-width: 140px;
+            min-width: 150px;
+            max-width: 180px;
+            width: 180px !important;
+            height: 38px !important;
+            line-height: 38px;
             text-align: center;
             cursor: pointer;
             appearance: none;
@@ -200,70 +223,66 @@
             -moz-appearance: none;
             position: relative;
             margin-right: 0;
-            background: #7a2320;
             transition: background 0.2s;
         }
-        .timkiem select:hover {
+        .header .timkiem select:hover {
             background: #b4332c;
         }
-        .dropdown-arrow {
-            right: 10px !important;
+        .header .dropdown-arrow {
+            right: 18px !important;
             margin-right: 0;
             font-size: 0.9em;
             color: #fff;
+            pointer-events: none;
         }
-
-
-
-
-    /*  */
-
-        .input-group-search {
+        .header .input-group-search {
             display: flex;
             align-items: center;
-            width: 550px;
+            width: 300px !important;
+            max-width: 300px !important;
+            min-width: 300px !important;
             background: #fff;
             border-radius: 30px;
             border: 1px solid #ccc;
-            padding: 0 10px 0 0;
+            padding: 0 6px 0 0;
+            height: 38px !important;
+            line-height: 38px;
+            flex-shrink: 0;
+            box-sizing: border-box;
         }
-
-        .input-group-search input[type="text"] {
+        /* Cố định font cho input tìm kiếm */
+        .header .input-group-search input[type="text"] {
+            font-family: 'Segoe UI', Arial, sans-serif !important;
             border: none;
             background: transparent;
             border-radius: 30px;
-            padding: 10px 16px;
+            padding: 0 10px;
             flex: 1;
             outline: none;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #888;
+            height: 38px;
+            line-height: 38px;
         }
-
-        .input-group-search button {
+        .header .input-group-search button {
             border: none;
             background: #f8dedd;
             color: #b4332c;
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 5px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: background 0.2s;
             box-shadow: none;
         }
-
-        .input-group-search button:hover {
+        .header .input-group-search button:hover {
             background: #0056b3;
         }
-
-
-
-
-    /*  */
-        .btn-home {
+        .header .btn-home {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -271,42 +290,193 @@
             color: #b4332c;
             border: none;
             border-radius: 25px;
-            padding: 8px 20px;
-            font-size: 0.8rem;
+            padding: 0 16px;
+            font-size: 0.95rem;
             font-weight: 500;
             text-decoration: none;
             margin-right: 18px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             transition: background 0.2s, color 0.2s;
+            height: 38px !important;
+            line-height: 38px;
+            min-width: 120px !important;
+            max-width: 120px !important;
+            width: 120px !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
-        .btn-home i {
-            font-size: 1rem;
+        .header .btn-contact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            color: #b4332c;
+            border: none;
+            border-radius: 25px;
+            padding: 0 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin-right: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: background 0.2s, color 0.2s;
+            height: 38px !important;
+            line-height: 38px;
+            min-width: 120px !important;
+            max-width: 120px !important;
+            width: 120px !important;
+            box-sizing: border-box;
+            overflow: hidden;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
-        .btn-home:hover {
+        .header .btn-contact:hover {
             background: #b4332c;
             color: #fff;
         }
-
-
-
-    /*  */
-
-        .loginandgiohang {
-            display: flex;
-            gap: 20px;
-            align-items: center;
+        .header .btn-home i {
+            font-size: 1rem;
         }
+        .header .btn-home:hover {
+            background: #b4332c;
+            color: #fff;
+        }
+        .header .loginandgiohang {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-height: 48px;
+        }
+ .login {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 220px;
+    max-width: 220px;
+}
 
-        .login a,
-        .giohang a {
+.user-menu {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 14px;
+    padding: 2px 6px;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #b4332c;
+    height: 40px;
+    min-width: 220px;
+    max-width: 220px;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    transition: none;
+}
+
+.user-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+    max-width: 100px;
+}
+
+.user-select {
+    flex-shrink: 0;
+}
+
+
+
+        .user-icon {
+    font-size: 20px;
+    background: #f3f3f3;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 4px;
+}
+
+ 
+
+        .user-select option:hover, .user-select option:checked {
+            background: #f0f8ff;
+        }
+  
+.user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+
+.user-select {
+    font-size: 0.75rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100px;
+    color: #b4332c;
+    padding: 2px 4px;
+    line-height: 1;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+
+.login-link {
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: #b4332c;
+    padding: 2px 4px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    min-width: 220px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.login-link:hover {
+    color: #0056b3;
+}
+
+
+
+
+        .header .giohang {
+            display: flex;
+            align-items: center;
+            margin-right: 40px;
+        }
+        .header .giohang a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
             text-decoration: none;
-            color:rgb(253, 254, 255);
+            color: rgb(253, 254, 255);
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 1.1rem;
+        }
+        .header .giohang a i {
+            font-size: 1.2rem;
+            margin-right: 4px;
+        }
+        .header .login a {
+            text-decoration: none;
+            color: rgb(253, 254, 255);
             font-weight: 500;
             transition: color 0.2s;
         }
-
-        .login a:hover,
-        .giohang a:hover {
+        .header .login a:hover,
+        .header .giohang a:hover {
             color: #0056b3;
         }
 
@@ -346,7 +516,7 @@
 
 .banner img {
     max-width: 100%;
-    height: 300px; /* Chiều cao cố định, bạn có thể chỉnh lại số này */
+    height: 200px; /* Chiều cao cố định, đã thu nhỏ lại */
     object-fit: cover; /* Giữ ảnh không bị méo, cắt đều */
     border-radius: 8px;
     max-height: 500px;

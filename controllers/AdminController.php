@@ -14,9 +14,9 @@ class AdminController {
             exit;
         }
         // Khởi tạo model nếu cần
-        $this->category = new CategoryModel(); // Giả sử có model CategoryModel để quản lý danh mục
+        $this->category = new CategoryModel(); // có model CategoryModel để quản lý danh mục
         //  khởi tạo đối tượng model sản phẩm
-        $this->productModel = new ProductModel(); // Giả sử có model ProductModel để quản lý sản phẩm
+        $this->productModel = new ProductModel(); //  model ProductModel để quản lý sản phẩm
         $this->comment = new Comment(); // Khởi tạo model bình luận
         $this->userModel = new UserModel(); // Khởi tạo model người dùng
 
@@ -29,6 +29,29 @@ class AdminController {
         
         // Gọi view quản trị viên
         require_once BASE_URL_ADMIN . 'homeAD.php'; // Đường dẫn tới view quản trị viên
+    }
+
+
+    // Hàm xử lý trang dashboard
+     // Trang dashboard admin
+    public function Dashboard() {
+        // Tổng số user
+        $userCount = count($this->userModel->getAllUsers());
+        // Tổng số sản phẩm
+        $productCount = count($this->productModel->getAllSP());
+        // Tổng số danh mục
+        $categoryModel = new CategoryModel();
+        $categoryCount = count($categoryModel->getAllCategories());
+        // Tổng số bình luận
+        $commentModel = new Comment();
+        $commentCount = count($commentModel->getAllComment1());
+
+        // 5 user mới nhất
+        $latestUsers = array_slice($this->userModel->getAllUsers(), -5);
+        // 5 sản phẩm mới nhất
+        $latestProducts = array_slice($this->productModel->getAllSP(), -5);
+        // Gọi view dashboard
+        require_once PATH_VIEW . 'admin/dashboard.php';
     }
 
 
@@ -199,6 +222,36 @@ function deleteComment(){
     public function User() {
         $users = $this->userModel->getAllUsers(); // Lấy tất cả người dùng từ model
         require_once BASE_URL_ADMIN . 'user.php'; // Đường dẫn tới view quản lý người dùng
+    }
+
+    //hàm khóa tai khoản người dùng
+    function EditUser(){
+        if(isset($_GET['id'])){
+           //gọi hàm   cập nhật  trạng thái người dùng khóa nguời dùng
+           $lockuser=$this->userModel->lockUser($_GET['id']);
+           header('Location: '.BASE_URL.'?act=user');
+           exit;
+    }
+}
+
+    //hàm mở lại tài khoản người dùng
+    function OpenUser(){
+        if(isset($_GET['id'])){
+            $openuser=$this->userModel->openUser($_GET['id']);
+            header('Location: '.BASE_URL.'?act=user');
+        }
+    }
+
+    // hàm phân quyền người dùng
+    function ChangeRole(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['role'])) {
+            $id = $_POST['id'];
+            $role = $_POST['role'];
+            // Gọi hàm phân quyền trong model
+            $this->userModel->changeRole($id, $role);
+            header('Location: '.BASE_URL.'?act=user');
+            exit;
+        }
     }
 
     

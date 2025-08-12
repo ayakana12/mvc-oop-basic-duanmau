@@ -6,7 +6,6 @@
     <li><a href="?act=product">🛍️ Quản lí sản phẩm</a></li>
     <li><a href="?act=comment">💬 Quản lí bình luận</a></li>
     <li><a href="?act=user">👥 Quản lí tài khoản</a></li>
-    <li><a href="?act=order">📦 Quản lí đơn hàng</a></li>
     <li><a href="?act=logoutadm">🚪 Thoát</a></li>
   </ul>
 </div>
@@ -31,7 +30,9 @@ body {
   color: #fff;
   padding: 20px 0;
   flex-shrink: 0;
+
 }
+
 
 .sidebar h2 {
   text-align: center;
@@ -57,10 +58,27 @@ body {
   transition: all 0.3s;
 }
 
+
 .sidebar ul li a:hover {
-  background-color: #34495e;
-  border-left: 5px solid #f1c40f;
-  padding-left: 25px;
+  background-color: inherit;
+  border-left: none;
+  padding-left: 20px;
+}
+
+.sidebar ul li a.active {
+  background-color: inherit;
+  border-left: none;
+  padding-left: 20px;
+}
+.sidebar ul li a,
+.sidebar ul li a:active,
+.sidebar ul li a:focus {
+  background: inherit !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: white;
+  padding-left: 20px;
 }
 
 </style>

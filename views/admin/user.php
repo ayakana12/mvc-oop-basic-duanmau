@@ -9,6 +9,7 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Password</th>
+                    <th>Địa chỉ</th>
                     <th>Role</th>
                     <th>Actions</th>
                 </tr>
@@ -20,10 +21,26 @@
                     <td><?php echo htmlspecialchars($user['name']); ?></td>
                     <td><?php echo htmlspecialchars($user['email']); ?></td>
                     <td><span class="masked-password">********</span> </td>
-                    
-                    <td><?php echo htmlspecialchars($user['role']); ?></td>
+                    <td><?php echo htmlspecialchars($user['address'] ?? ''); ?></td>
+                                        <td>
+                                        <!-- chỗ để tôi phân quyền người dùng =)) -->
+                                            <form method="post" action="?act=change_role" style="margin:0;">
+                                                <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                                <select name="role" onchange="this.form.submit()">
+                                                    <option value="1" <?php if($user['role']==1) echo 'selected'; ?>>Admin</option>
+                                                    <option value="0" <?php if($user['role']==0) echo 'selected'; ?>>User</option>
+                                                </select>
+                                            </form>
+                                        </td>
                     <td>
-                        <a href="<?php echo BASE_URL . '?act=edit_user&id=' . $user['id']; ?>" class="btn-edit">Khóa</a>
+                        <?php
+                        if($user['status'] == 0) {
+                            echo '<span style="color: red;">Đã khóa</span>'; 
+                         echo '<a href="?act=open_user&id=' . $user['id'] . '" class="btn-edit">Mở lại tk</a>';
+                        } else {
+                            echo '<a href="?act=edit_user&id=' . $user['id'] . '" class="btn-edit">Khóa</a>';
+                        }
+                        ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

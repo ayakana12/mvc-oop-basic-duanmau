@@ -1,3 +1,4 @@
+    
 <?php 
 // Có class chứa các function thực thi tương tác với cơ sở dữ liệu 
 //file model lấy  sản phẩm từ database
@@ -33,7 +34,7 @@ class ProductModel {
         $stmt->execute(['id'=>$product] );
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    
     // Hàm tìm kiếm sản phẩm
     function getSearch($category, $keyword){
         if ($category === '' || $category === null) {

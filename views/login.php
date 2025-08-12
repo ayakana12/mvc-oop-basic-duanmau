@@ -1,4 +1,5 @@
 <form action="<?= BASE_URL.'?act=formlogin' ?>" method="post">
+<div class="main-content">
     <div class="login-container">
         <h2>Đăng nhập</h2>
         <div class="form-group">
@@ -22,7 +23,9 @@
             <button type="submit" name="login">Đăng nhập</button>
         </div>
     </div>
+    </div>
 </form>
+</div>
 <style>
     body {
     background: #f0f2f5;

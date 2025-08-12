@@ -1,4 +1,5 @@
 <form action="<?= BASE_URL.'?act=formdangki' ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+<div class="main-content">
     <div class="login-container">
         <h2>Đăng kí</h2>
         <div class="form-group">
@@ -8,6 +9,10 @@
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Email không đúng định dạng">
+        </div>
+          <div class="form-group">
+            <label for="address">Địa chỉ:</label>
+            <input type="text" id="address" name="address" required placeholder="Nhập địa chỉ của bạn">
         </div>
         <div class="form-group">
             <label for="password">Mật khẩu:</label>
@@ -21,11 +26,14 @@
             <label for="avatar">Ảnh đại diện:</label>
             <input type="file" id="avatar" name="avatar" accept="image/*">
         </div>
+      
         <div class="form-group">
             <button type="submit" name="login">Đăng kí</button>
         </div>
     </div>
+    </div>
 </form>
+</div>
 <script>
 function validateForm() {
     var username = document.getElementById('username').value.trim();
