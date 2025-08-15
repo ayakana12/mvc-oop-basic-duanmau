@@ -19,6 +19,25 @@
         </div>
     </form>
 </div>
+<script>
+    function validateForm() {
+        var name = document.getElementById('name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var message = document.getElementById('message').value.trim();
+
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!name || !email || !message) {
+            alert('Vui lòng điền đầy đủ thông tin.');
+            return false;
+        }
+        if (!emailPattern.test(email)) {
+            alert('Email không đúng định dạng.');
+            return false;
+        }
+        return true;
+    }
+</script>
 <style>
 body, .main-content {
     font-family: 'Segoe UI', Arial, sans-serif !important;

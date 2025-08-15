@@ -1,7 +1,7 @@
 
 <div class="main-content">
     <h1>👋 Welcome Admin</h1>
-    <p>Chào mừng bạn đến trang quản trị PolyShop. Hãy chọn chức năng ở menu bên trái để bắt đầu.</p>
+    <p>Chào mừng bạn đến trang quản trị TechZone. Hãy chọn chức năng ở menu bên trái để bắt đầu.</p>
   </div>
 <style>
 /* Reset cơ bản */

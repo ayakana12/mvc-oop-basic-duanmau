@@ -95,10 +95,7 @@
                 color: #e8796dff;
                 text-shadow: 0 0 16px #e74c3c, 0 2px 12px rgba(0,0,0,0.15);
             }
-            70% {
-                color: #ab5249ff;
-                text-shadow: 0 0 16px #e74c3c, 0 2px 12px rgba(0,0,0,0.15);
-            }
+         
             100% {
                 color: #e74c3c;
                 text-shadow: 2px 2px 8px rgba(231,76,60,0.15), 0 2px 8px rgba(0,0,0,0.08);

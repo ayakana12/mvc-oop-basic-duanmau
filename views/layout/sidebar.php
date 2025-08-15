@@ -1,5 +1,5 @@
 <div class="sidebar">
-  <h2>PolyShop</h2>
+  <h2>TechZone</h2>
   <ul>
     <li><a href="?act=dashboard">📊 Dashboard</a></li>
     <li><a href="?act=category">📁 Quản lí danh mục</a></li>

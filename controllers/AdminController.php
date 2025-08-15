@@ -81,6 +81,7 @@ class AdminController {
         if(isset($_GET['id'])){
 
             //truyền vào hàm duyệt tất cả danh mục trong trường danh mục khi ko nhấn sửa  để hiển thị
+            $dm = $this->category->getAllCategories();
             $Categories = $this->category->getAllCategories();
             require_once BASE_URL_ADMIN . 'danhmuc.php'; // Đường dẫn tới view quản lý danh mục
         }
@@ -143,8 +144,9 @@ class AdminController {
     //cập nhật sản phẩm
     function editProduct(){
         if(isset($_GET['id'])){
-            // Lấy danh sách sản phẩm để truyền sang view
+            // Lấy danh sách sản phẩm và danh mục để truyền sang view
             $product = $this->productModel->getAllSP();
+            $dm = $this->category->getAllCategories();
             require_once BASE_URL_ADMIN . 'product.php'; // Đường dẫn tới view quản lý sản phẩm
             exit;
         }
@@ -155,9 +157,10 @@ class AdminController {
           $name = $_POST['name'];
           $img = $_FILES['img']['name'];
           $id_danhmuc = isset($_POST['id_danhmuc']) ? $_POST['id_danhmuc'] : 0;
-          $id_danhmuc = (is_numeric($id_danhmuc) && $id_danhmuc !== '') ? intval($id_danhmuc) : 0;
+       
           $mota = $_POST['mota'];
           $price = $_POST['price'];
+          $giamgia = isset($_POST['giamgia']) && $_POST['giamgia'] !== '' ? $_POST['giamgia'] : 0;
 
           // Xử lý ảnh
           if ($img) {
@@ -167,7 +170,7 @@ class AdminController {
           }
 
           // cập nhật sản phẩm (truyền đúng thứ tự tham số)
-          $this->productModel->updateProduct($id, $name, $img, $id_danhmuc, $mota, $price);
+          $this->productModel->updateProduct($id, $name, $img, $id_danhmuc, $mota, $price, $giamgia);
           header('Location: '.BASE_URL.'?act=product');
      }
     }

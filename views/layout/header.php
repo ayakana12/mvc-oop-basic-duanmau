@@ -11,7 +11,7 @@
 
         <section class="header">
         
-            <div class="logo"> POLYSHOP</div>
+            <div class="logo">TechZone</div>
         
             <div class="timkiem">
                  <a href="<?= BASE_URL ?>" class="btn-home">
@@ -53,7 +53,19 @@
     <div class="loginandgiohang">
     <div class="login">
         <div class="user-menu">
-            <i class="fa-solid fa-user user-icon"></i>
+            <?php
+            if(isset($_SESSION['user'])){
+                // Hiển thị ảnh đại diện người dùng nếu có
+                //$userImage = (điều_kiện) ? giá_trị_nếu_đúng : giá_trị_nếu_sai;
+                $userImage = isset($_SESSION['user']['avata']) ? htmlspecialchars($_SESSION['user']['avata']) : 'default-avatar.png';
+                echo '<img src="' . $userImage . '" alt="User Avatar" class="user-avatar">';
+            } else {
+                ?>
+                <i class="fa-solid fa-user user-icon"></i>
+                <?php 
+            }
+            ?>
+            
             <?php if (isset($_SESSION['user'])): ?>
                 <span class="user-name">
                     <?= htmlspecialchars(is_array($_SESSION['user']) ? $_SESSION['user']['name'] : $_SESSION['user']) ?>
@@ -523,4 +535,14 @@
     transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.6s;
     will-change: transform, opacity;
 }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #b4332c;
+            background: #fff;
+            display: inline-block;
+            vertical-align: middle;
+        }
         </style>

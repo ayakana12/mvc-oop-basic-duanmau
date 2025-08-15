@@ -89,10 +89,13 @@ if (isset($_GET['act']) && strtolower($_GET['act']) == 'addproduct') {
                 <td>
                   <input type="file" name="img" class="edit-input-file">
                 </td>
-                <td>
-                  <span class="edit-category"> <?= $item['tendanhmuc'] ?? $item['id_danhmuc'] ?> </span>
-                  <input type="hidden" name="id_danhmuc" value="<?= $item['id_danhmuc'] ?>">
-                </td>
+                 <td>
+                          <select name="id_danhmuc" class="edit-input" style="width:100%;">
+                                <?php foreach($dm as $dm_item): ?>
+                                    <option value="<?= $dm_item['id'] ?>" <?= ($dm_item['id'] == $item['id_danhmuc']) ? 'selected' : '' ?>><?= $dm_item['name'] ?></option>
+                                <?php endforeach; ?>
+                          </select>
+                 </td>
                 <td>
                   <input type="text" name="mota" value="<?= htmlspecialchars($item['mota']) ?>" class="edit-input">
                 </td>

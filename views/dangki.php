@@ -30,6 +30,7 @@
         <div class="form-group">
             <button type="submit" name="login">Đăng kí</button>
         </div>
+    <a href="<?= BASE_URL.'?act=/' ?>" class="btn-back">Quay lại</a>
     </div>
     </div>
 </form>
@@ -138,6 +139,26 @@ button[type="submit"] {
 }
 button[type="submit"]:hover {
     background: #0056b3;
+}
+
+.btn-back {
+    display: inline-block;
+    background: #7f8c8d;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.btn-back:hover {
+    background: #b2bec3;
+    color: #2c3e50;
 }
 
 

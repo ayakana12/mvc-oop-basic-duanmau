@@ -18,7 +18,7 @@ class HomeController {
     
 
 
-    // ///Hiển thị trang chủ
+  //Hiển thị trang chủ
     public function Home() {
         // Lấy tất cả sản phẩm và danh mục, truyền ra view
         $products = $this->productModel->getAllSP();
@@ -151,11 +151,16 @@ class HomeController {
         exit;
     }
 
-    // ///Hiển thị trang tìm kiếm sản phẩm
+  //Hiển thị trang tìm kiếm sản phẩm
     function Search(){
         if(isset($_POST['button'])){
             $category = isset($_POST['category']) ? $_POST['category'] : '';
-            $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
+            $keyword = isset($_POST['keyword']) ? trim($_POST['keyword']) : '';
+            if($keyword === ''){
+                // Nếu không nhập từ khóa thì chuyển về trang chủ,
+                echo "<script>window.location.href='" . BASE_URL . "';</script>";
+                exit();
+            }
             $products = $this->productModel->getSearch($category, $keyword);
             if(empty($products)){
                echo "Không tìm thấy sản phẩm nào phù hợp với từ khóa tìm kiếm.";

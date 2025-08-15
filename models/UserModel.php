@@ -69,7 +69,7 @@ class UserModel{
                 mkdir($targetDir, 0777, true);
             } 
             $targetFile = $targetDir . basename($avatar['name']);
-            move_uploaded_file($avatar['tmp_name'], $targetFile);
+            move_uploaded_file($avatar['tmp_name'], $targetFile);//di chuyển file ảnh mà người dùng vừa upload từ thư mục tạm (tmp_name) sang thư mục đích ($targetFile) trên server.
             $stmt->bindParam(':avatar', $targetFile);
             $stmt->bindParam(':create_at', $create_at);
         } else {

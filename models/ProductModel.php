@@ -8,7 +8,7 @@ class ProductModel {
         $this->conn = connectDB();
     }
 
-    // Viết truy vấn danh sách sản phẩm 
+    // 🚩🚩🚩Viết truy vấn danh sách sản phẩm 
      function getAllSP(){
         $sql= "SELECT product.*,  danhmuc.name AS tendanhmuc from product inner join danhmuc on product.id_danhmuc=danhmuc.id";
         $stmt=$this->conn->prepare($sql);
@@ -17,7 +17,7 @@ class ProductModel {
         return $ketqua;
     }
 
-     //lấy thông tin chi tiêt sản phẩm
+     //🚩🚩🚩lấy thông tin chi tiêt sản phẩm
     function getSPById($id){
         $sql= "SELECT product.*, danhmuc.name AS tendanhmuc FROM product INNER JOIN danhmuc ON product.id_danhmuc=danhmuc.id WHERE product.id=:id";
         $stmt=$this->conn->prepare($sql);
@@ -26,7 +26,7 @@ class ProductModel {
         $ketqua=$stmt->fetch(PDO::FETCH_ASSOC);
         return $ketqua;
     }
-    // hàm lấy  sản phẩm ngẫu nhiên
+    //🚩🚩🚩 hàm lấy  sản phẩm ngẫu nhiên
     function getproductsrandom($product,$limit){
         $limit = intval($limit); // Đảm bảo là số nguyên
         $sql="SELECT * from product where id != :id ORDER  BY RAND() LIMIT $limit"; 
@@ -35,7 +35,7 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    // Hàm tìm kiếm sản phẩm
+    //🚩🚩🚩 Hàm tìm kiếm sản phẩm
     function getSearch($category, $keyword){
         if ($category === '' || $category === null) {
             // Không lọc theo danh mục, chỉ tìm theo tên
@@ -72,9 +72,9 @@ class ProductModel {
         $ketqua=$stmt->fetch(PDO::FETCH_ASSOC);
         return $ketqua['img'];
     }
-    // cập nhật sản phẩm (chỉ sửa các trường có trong form sửa)
-    function updateProduct($id, $name, $img, $id_danhmuc, $mota, $price){
-        $sql = "UPDATE product SET name = :name, img = :img, id_danhmuc = :id_danhmuc, mota = :mota, price = :price WHERE id = :id";
+    // 🚩🚩🚩cập nhật sản phẩm (chỉ sửa các trường có trong form sửa)
+    function updateProduct($id, $name, $img, $id_danhmuc, $mota, $price, $giamgia){
+        $sql = "UPDATE product SET name = :name, img = :img, id_danhmuc = :id_danhmuc, mota = :mota, price = :price, giamgia = :giamgia WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':name', $name);
@@ -82,10 +82,11 @@ class ProductModel {
         $stmt->bindParam(':id_danhmuc', $id_danhmuc, PDO::PARAM_INT);
         $stmt->bindParam(':mota', $mota);
         $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':giamgia', $giamgia);
         return $stmt->execute();
     }
 
-    // 🚩🚩🚩🚩🚩🚩 Hàm thêm sản phẩm
+    // 🚩🚩🚩🚩 Hàm thêm sản phẩm
     function addProduct($name, $img, $id_danhmuc, $mota, $price){
         $sql = "INSERT INTO product (name, img, id_danhmuc, mota, price) VALUES (:name, :img, :id_danhmuc, :mota, :price)";
         $stmt = $this->conn->prepare($sql);
